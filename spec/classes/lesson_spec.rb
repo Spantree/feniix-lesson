@@ -7,14 +7,34 @@ describe 'lesson', :type => :class do
       let(:params) {{ }}
       it { should compile.with_all_deps }
       it { should contain_class('lesson::params') }
+      it { should contain_class('apt') } 
     end
   end
 
   context 'supported operating systems' do
-    ['Debian', 'RedHat'].each do |osfamily|
-      describe "lesson class without any parameters on #{osfamily}" do
-        let(:facts) {{ :osfamily => osfamily, }}
-        it_behaves_like 'a linux os' do
+    describe 'ubuntu' do
+      ['precise', 'trusty'].each do |lsbdistcodename|
+        context "#{lsbdistcodename}" do
+          let(:facts) {{
+            :osfamily => 'Debian',
+            :operatingsystem => 'Ubuntu',
+            :lsbdistcodename => lsbdistcodename,
+            :lsbdistid => 'ubuntu'
+          }}
+          it_behaves_like 'a linux os' do end
+        end
+      end
+    end
+    describe 'debian' do
+      ['squeeze', 'wheezy'].each do |lsbdistcodename|
+        context "#{lsbdistcodename}" do
+          let(:facts) {{
+            :osfamily => 'Debian',
+            :operatingsystem => 'Debian',
+            :lsbdistcodename => lsbdistcodename,
+            :lsbdistid => 'Debian'
+          }}
+          it_behaves_like 'a linux os' do end
         end
       end
     end

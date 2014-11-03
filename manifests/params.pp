@@ -6,6 +6,8 @@
 class lesson::params {
 
   case $::osfamily {
+    'Ubuntu': {
+    }
     'Debian': {
     }
     'RedHat': {

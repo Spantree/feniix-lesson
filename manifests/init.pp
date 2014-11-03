@@ -26,5 +26,6 @@ class lesson (
 ) inherits lesson::params {
 
   # validate parameters here
+  include apt
 
 }
